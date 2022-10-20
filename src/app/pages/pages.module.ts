@@ -8,6 +8,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
 import { Graphic1Component } from './graphic1/graphic1.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 
@@ -16,13 +17,15 @@ import { Graphic1Component } from './graphic1/graphic1.component';
      DashboardComponent,
      ProgressComponent,
      Graphic1Component,
-     PagesComponent
+     PagesComponent,
+     AccountSettingsComponent
   ],
   exports:[
     DashboardComponent,
     ProgressComponent,
     Graphic1Component,
-    PagesComponent
+    PagesComponent,
+    AccountSettingsComponent
   ],
   imports: [
     CommonModule,
