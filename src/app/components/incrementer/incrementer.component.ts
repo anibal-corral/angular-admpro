@@ -27,6 +27,19 @@ export class IncrementerComponent implements OnInit {
     this.valueChanged.emit(this.progress);
     return this.progress;
   }
+  onChange(value:number){
+    if(value>=this.maxPercentage){
+    this.progress=this.maxPercentage;
+    }else if(value<this.minPercentage){
+      this.progress=this.minPercentage;
+    }else{
+      this.progress=value;
+    }
+    
+    this.valueChanged.emit(value);
+    
+
+  }
   constructor() { }
 
   ngOnInit(): void {

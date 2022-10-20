@@ -7,10 +7,12 @@
             <i class="fa fa-minus"></i>
         </button>
     </span>
-    <input  type="text" 
+    <input  type="number" 
             class="form-control" 
+            [ngClass]="{'is-invalid': progress>100 || progress<0 }"
             placeholder="Progress"
             [(ngModel)]="progress"
+            (ngModelChange)="onChange($event)"
             >
     <span class="input-group-btn">
         <button 
