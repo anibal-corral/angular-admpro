@@ -1,0 +1,30 @@
+   <div class="row">
+                    <div class="col-6">
+                      <app-donut
+                        [title]="'Sales'" 
+                        [chartLabels]="labels1" 
+                        [chartData]="data1">
+                      </app-donut>
+                    </div>
+                    <div class="col-6">
+                        <app-donut 
+                          title="Payments"
+                          [chartLabels]="labels2"
+                          [chartData]="data2"
+                          >
+
+                        </app-donut>
+                      </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                      <app-donut 
+                          [chartLabels]="labels3" 
+                          [chartData]="data3"></app-donut>
+                    </div>
+                    <div class="col-6">
+                        <app-donut 
+                        [chartLabels]="labels4" 
+                        [chartData]="data4"></app-donut>
+                      </div>
+                </div>
