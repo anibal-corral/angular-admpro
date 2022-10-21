@@ -10,6 +10,8 @@ import { ComponentsModule } from '../components/components.module';
 import { Graphic1Component } from './graphic1/graphic1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromisesComponent } from './promises/promises.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
+
 
 
 
@@ -22,6 +24,7 @@ import { PromisesComponent } from './promises/promises.component';
      PagesComponent,
      AccountSettingsComponent,
      PromisesComponent,
+     RxjsComponent,
      
   ],
   exports:[
@@ -30,7 +33,8 @@ import { PromisesComponent } from './promises/promises.component';
     Graphic1Component,
     PagesComponent,
     AccountSettingsComponent,
-    PromisesComponent
+    PromisesComponent,
+    RxjsComponent
   ],
   imports: [
     CommonModule,
