@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
 import { Graphic1Component } from './graphic1/graphic1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromisesComponent } from './promises/promises.component';
+
 
 
 
@@ -18,14 +20,17 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
      ProgressComponent,
      Graphic1Component,
      PagesComponent,
-     AccountSettingsComponent
+     AccountSettingsComponent,
+     PromisesComponent,
+     
   ],
   exports:[
     DashboardComponent,
     ProgressComponent,
     Graphic1Component,
     PagesComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    PromisesComponent
   ],
   imports: [
     CommonModule,
