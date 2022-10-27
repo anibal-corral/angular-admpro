@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+
+declare const google:any;
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ import Swal from 'sweetalert2';
   ]
   
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   loginForm!: FormGroup;
   constructor(private router:Router,private fb: FormBuilder, private userService:UserService) { 
     this.loginForm = this.fb.group({
@@ -21,7 +23,23 @@ export class LoginComponent implements OnInit {
       rememberme:[false]
     })
   }
+  ngAfterViewInit(): void {
+    this.googleInit();
+  }
+  googleInit(){
+    google.accounts.id.initialize({
+      client_id: "987550744353-rq2hkv2nr2fuhrbge1cks8l74c7ttcdh.apps.googleusercontent.com",
+      callback: this.handleCredentialResponse
+    });
+    google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" }  // customization attributes
+    );
 
+  }
+  handleCredentialResponse(response:any){
+    console.log("Encoded JWT ID token: " + response.credential);
+  }
   ngOnInit(): void {
   }
 login(){
