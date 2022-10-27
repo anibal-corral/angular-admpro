@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ public registerForm = this.fb.group({
   validators: this.equalPwds('pwd','pwd2')
 })
 formSubmitted = false;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private userService:UserService) { }
 
   ngOnInit(): void {
   }
@@ -27,13 +28,13 @@ formSubmitted = false;
   createUser(){
     this.formSubmitted = true;
     console.log(this.registerForm.value);
-    if(this.registerForm.valid){
-      console.log('Sending data');
-    }else{
-      console.log("Form is not valid");
+    if(!this.registerForm.valid)return;
+    this.userService.createUser(this.registerForm.value).subscribe(
+      (resp) => {console.log('Respuesta'); console.log(resp);},(err) => console.warn(err)
+    )
       
     }
-  }
+  
 validField(field:string){
   if(this.registerForm.get(field)?.invalid && this.formSubmitted==true){
     return true;
