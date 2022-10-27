@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 login(){
-  console.log(this.loginForm.value);
+  // console.log(this.loginForm.value);
   if(!this.loginForm.valid)return;
 this.userService.loginUser(this.loginForm.value).subscribe(
   (resp)=>{
@@ -59,11 +59,11 @@ this.userService.loginUser(this.loginForm.value).subscribe(
     }else{
       localStorage.removeItem('email');
     }
-  
+   this.router.navigateByUrl('/');
   },
   (err) => { Swal.fire("Error", err.error.msg,'error')}
 )
   
-  // this.router.navigateByUrl('/');
+  
 }
 }
