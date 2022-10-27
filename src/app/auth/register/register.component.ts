@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2'
 
@@ -21,19 +22,20 @@ public registerForm = this.fb.group({
   validators: this.equalPwds('pwd','pwd2')
 })
 formSubmitted = false;
-  constructor(private fb: FormBuilder, private userService:UserService) { }
+  constructor(private fb: FormBuilder, private userService:UserService, private router:Router) { }
 
   ngOnInit(): void {
   }
 
   createUser(){
     this.formSubmitted = true;
-    console.log(this.registerForm.value);
+    // console.log(this.registerForm.value);
     if(!this.registerForm.valid)return;
+   
     this.userService.createUser(this.registerForm.value).subscribe(
       (resp) => {
-        console.log('Respuesta'); 
         console.log(resp);
+        this.router.navigateByUrl('/');
       },(err) => {
         //If there is any error
         Swal.fire('Error',err.error.msg,'error');
