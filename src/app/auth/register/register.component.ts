@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register',
@@ -7,10 +11,70 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class RegisterComponent implements OnInit {
+public registerForm = this.fb.group({
+  name:['',[Validators.required, Validators.minLength(3)]],
+  email:['',[Validators.required, Validators.email]],
+  pwd:['',[Validators.required, Validators.minLength(3)]],
+  pwd2:['',[Validators.required, Validators.minLength(3)]],
+  terms:[false,[Validators.required]],
 
-  constructor() { }
+}, {
+  validators: this.equalPwds('pwd','pwd2')
+})
+formSubmitted = false;
+  constructor(private fb: FormBuilder, private userService:UserService, private router:Router) { }
 
   ngOnInit(): void {
   }
 
+  createUser(){
+    this.formSubmitted = true;
+    // console.log(this.registerForm.value);
+    if(!this.registerForm.valid)return;
+   
+    this.userService.createUser(this.registerForm.value).subscribe(
+      (resp) => {
+        console.log(resp);
+        this.router.navigateByUrl('/');
+      },(err) => {
+        //If there is any error
+        Swal.fire('Error',err.error.msg,'error');
+      }
+    )
+      
+    }
+  
+validField(field:string){
+  if(this.registerForm.get(field)?.invalid && this.formSubmitted==true){
+    return true;
+  }else{
+    return false;
+  }
+
 }
+termsAccepted(){
+  return !this.registerForm.get('terms')?.value && this.formSubmitted;
+}
+validatePwd(){
+  const pwd1 = this.registerForm.get('pwd')?.value;
+  const pwd2 = this.registerForm.get('pwd2')?.value;
+  if((pwd1!==pwd2) && this.formSubmitted==true) { return false}else{return true};
+
+
+}
+equalPwds(pwd: string, pwd2: string){
+  return (formGroup: FormGroup) => {
+    const pwdControl = formGroup.get(pwd);
+    const pwdControl2 = formGroup.get(pwd2);
+    if(pwdControl?.value === pwdControl2?.value){
+      pwdControl?.setErrors(null);
+      pwdControl2?.setErrors(null);
+    }else{
+      pwdControl2?.setErrors({notEqual:true})
+    }
+  }
+  
+}
+}
+ 
+
