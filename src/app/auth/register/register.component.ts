@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +15,8 @@ public registerForm = this.fb.group({
   pwd2:['',[Validators.required, Validators.minLength(3)]],
   terms:[false,[Validators.required]],
 
+}, {
+  validators: this.equalPwds('pwd','pwd2')
 })
 formSubmitted = false;
   constructor(private fb: FormBuilder) { }
@@ -43,4 +45,26 @@ validField(field:string){
 termsAccepted(){
   return !this.registerForm.get('terms')?.value && this.formSubmitted;
 }
+validatePwd(){
+  const pwd1 = this.registerForm.get('pwd')?.value;
+  const pwd2 = this.registerForm.get('pwd2')?.value;
+  if((pwd1!==pwd2) && this.formSubmitted==true) { return false}else{return true};
+
+
 }
+equalPwds(pwd: string, pwd2: string){
+  return (formGroup: FormGroup) => {
+    const pwdControl = formGroup.get(pwd);
+    const pwdControl2 = formGroup.get(pwd2);
+    if(pwdControl?.value === pwdControl2?.value){
+      pwdControl?.setErrors(null);
+      pwdControl2?.setErrors(null);
+    }else{
+      pwdControl2?.setErrors({notEqual:true})
+    }
+  }
+  
+}
+}
+ 
+
