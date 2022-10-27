@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -15,6 +15,9 @@ declare const google:any;
   
 })
 export class LoginComponent implements OnInit, AfterViewInit {
+
+@ViewChild('googleBtn') googleBtn!:ElementRef;
+
   loginForm!: FormGroup;
   constructor(private router:Router,private fb: FormBuilder, private userService:UserService) { 
     this.loginForm = this.fb.group({
@@ -32,7 +35,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       callback: this.handleCredentialResponse
     });
     google.accounts.id.renderButton(
-      document.getElementById("buttonDiv"),
+      this.googleBtn.nativeElement,
       { theme: "outline", size: "large" }  // customization attributes
     );
 
