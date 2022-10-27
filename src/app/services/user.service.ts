@@ -34,10 +34,16 @@ export class UserService {
       formData
     ).pipe(
       tap((resp:any) => {
-        console.log(resp);
+         localStorage.setItem('token', resp.token)
+      })
+    )
+  }
+  loginGoogle(token:string){
+    return this.http.post(`${base_url}/login/google`,{token})
+    .pipe(
+      tap((resp:any)=>{
         localStorage.setItem('token', resp.token)
       })
     )
-
   }
 }
