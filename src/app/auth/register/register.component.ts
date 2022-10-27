@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,13 @@ formSubmitted = false;
     console.log(this.registerForm.value);
     if(!this.registerForm.valid)return;
     this.userService.createUser(this.registerForm.value).subscribe(
-      (resp) => {console.log('Respuesta'); console.log(resp);},(err) => console.warn(err)
+      (resp) => {
+        console.log('Respuesta'); 
+        console.log(resp);
+      },(err) => {
+        //If there is any error
+        Swal.fire('Error',err.error.msg,'error');
+      }
     )
       
     }
