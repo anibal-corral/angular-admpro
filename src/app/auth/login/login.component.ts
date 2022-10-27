@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   constructor(private router:Router,private fb: FormBuilder, private userService:UserService) { 
     this.loginForm = this.fb.group({
-      email:['',[Validators.required, Validators.email]],
+      email:[ localStorage.getItem('email')||'',[Validators.required, Validators.email]],
       pwd:['',[Validators.required, Validators.minLength(3)]],
       rememberme:[false]
     })
@@ -28,7 +28,14 @@ login(){
   console.log(this.loginForm.value);
   if(!this.loginForm.valid)return;
 this.userService.loginUser(this.loginForm.value).subscribe(
-  (resp)=>{console.log(resp)},
+  (resp)=>{
+    if(this.loginForm.get('rememberme')?.value){
+      localStorage.setItem('email',this.loginForm.get('email')?.value);
+    }else{
+      localStorage.removeItem('email');
+    }
+  
+  },
   (err) => { Swal.fire("Error", err.error.msg,'error')}
 )
   
