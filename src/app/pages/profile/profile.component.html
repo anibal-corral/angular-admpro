@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <label for="exampleInputEmail2">Email address</label>
                         <div class="input-group">
-                            <input formControlName="email" type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                            <input [readOnly]="user.google" formControlName="email" type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
                             <div class="input-group-addon"><i class="ti-email"></i></div>
                         </div>
                     </div>
