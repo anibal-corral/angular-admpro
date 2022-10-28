@@ -6,6 +6,7 @@ import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
 declare const google:any;
 const base_url = environment.base_url;
 const api = 'users';
@@ -16,6 +17,8 @@ const api = 'users';
 
 
 export class UserService {
+  user!:User;
+
   constructor(private http:HttpClient, private router:Router) { }
   validateToken():Observable<boolean>{
     const token = localStorage.getItem('token')||'';
@@ -24,11 +27,16 @@ export class UserService {
         'x-token':token
       }
     }).pipe(
-      tap(
+      // tap(
+        map(
         (resp:any)=>{
-          localStorage.setItem('token', resp.token)
+          localStorage.setItem('token', resp.token);
+          // this.user = resp.user;
+          const { email, google, name, role, uid, img} = resp.user;
+          this.user = new User(name,email,google,'',img,role,uid);
+          return true;
         }),
-        map(resp => true),
+        // map(resp => true),
         catchError(error=>of(false))
     ) ;
   }
@@ -69,5 +77,24 @@ export class UserService {
     google.accounts.id.revoke('anibal.corral@gmail.com',()=>{
       this.router.navigateByUrl('/login');
     })
+  }
+
+  updateProfile(data:{email:string, name:string}){
+    const token = localStorage.getItem('token')||'';
+
+    const m = {
+      ...data,
+      role:this.user.role,
+      
+
+    }
+    return this.http.put(
+      `${base_url}/${api}/${this.user.uid}`, data
+      ,{
+        headers:{
+          'x-token':token
+        }
+      }
+      )
   }
 }
