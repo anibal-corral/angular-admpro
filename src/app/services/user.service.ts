@@ -78,4 +78,23 @@ export class UserService {
       this.router.navigateByUrl('/login');
     })
   }
+
+  updateProfile(data:{email:string, name:string}){
+    const token = localStorage.getItem('token')||'';
+
+    const m = {
+      ...data,
+      role:this.user.role,
+      
+
+    }
+    return this.http.put(
+      `${base_url}/${api}/${this.user.uid}`, data
+      ,{
+        headers:{
+          'x-token':token
+        }
+      }
+      )
+  }
 }
