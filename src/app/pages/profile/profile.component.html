@@ -37,11 +37,17 @@
             <div class="card-body">
                 <h4 class="card-title">Avatar</h4>
                 <h6 class="card-subtitle">Profile picture</h6>
-                <img src="" alt="">
-                <input type="file">
+                <div class="text-center">
+                    <img *ngIf="!profilePicturePreview"  [src]="user.imgUrl" alt="" class='img-avatar'>
+                    <img *ngIf="profilePicturePreview" [src]="profilePicturePreview" alt="" class='img-avatar'>
+                </div>
+                
+                <input type="file"
+                (change)="changeImg($any($event.target).files[0])"
+                >
                 <br>
                 <br>
-                <button type="button" class="btn btn-success waves-eect waves-light m-r-10">
+                <button type="button" (click)="updateProfilePicture()" [disabled]="!profilePicture" class="btn btn-success waves-eect waves-light m-r-10">
                     <i class="fa fa-save"></i>
                     Change profile picture
                 </button>
