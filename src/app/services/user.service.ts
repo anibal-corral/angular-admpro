@@ -97,4 +97,14 @@ export class UserService {
       }
       )
   }
+
+  getUsers(from: number = 0){
+    const url = `${base_url}/${api}?from=${from}`;
+    const token = localStorage.getItem('token')||'';
+    return this.http.get<{total:number, users:User[]}>(url,{
+      headers:{
+        'x-token':token
+      }
+    })
+  }
 }

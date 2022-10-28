@@ -42,12 +42,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Lunar probe project</td>
-                                            <td>Lunar probe project</td>
-                                            <td>Lunar probe project</td>
-                                            <td>Lunar probe project</td>
-                                            <td>Lunar probe project</td>
+                                        <tr *ngFor="let user of users">
+                                            <td>Imagen {{user.imgUrl}}</td>
+                                            <td>{{user.email}}</td>
+                                            <td>{{user.name}}</td>
+                                            <td>{{user.role}}</td>
+                                            <td>
+                                                <span *ngIf="user.google" class="label label-danger">Google</span>
+                                                <span *ngIf="!user.google" class="label label-info">Email</span>
+
+                                            </td>
                                             <!-- <td>
                                                 <div class="progress progress-xs margin-vertical-10 ">
                                                     <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
@@ -64,7 +68,7 @@
                             </div>
                             <button class="btn btn-secondary">Before</button>
                             &nbsp;
-                            <button class="btn btn-secondary">Next</button>
+                            <button class="btn btn-primary">Next</button>
                         </div>
                     </div>
                 </div>

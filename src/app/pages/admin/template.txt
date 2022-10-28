@@ -64,7 +64,7 @@
                             </div>
                             <button class="btn btn-secondary">Before</button>
                             &nbsp;
-                            <button class="btn btn-secondary">Next</button>
+                            <button class="btn btn-primary">Next</button>
                         </div>
                     </div>
                 </div>
