@@ -9,6 +9,9 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './admin/users/users.component';
+import { DoctorsComponent } from './admin/doctors/doctors.component';
+import { HospitalsComponent } from './admin/hospitals/hospitals.component';
 
 const routes: Routes = [
   {
@@ -23,7 +26,11 @@ const routes: Routes = [
       { path: 'account-settings', component: AccountSettingsComponent, data:{title:'Account Settings'}},
       { path: 'promises', component: PromisesComponent, data:{title:'Promises'}},
       { path: 'rxjs', component: RxjsComponent, data:{title:'Rxjs'}},
-      { path: 'profile', component:ProfileComponent, data:{title:'User profile'}}
+      { path: 'profile', component:ProfileComponent, data:{title:'User profile'}},
+
+      { path: 'users', component:UsersComponent, data:{title:'Users'}},
+      { path: 'doctors', component:DoctorsComponent, data:{title:'Doctors'}},
+      { path: 'hospitals', component:HospitalsComponent, data:{title:'Hospitals'}},
       // { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
     ]
 },

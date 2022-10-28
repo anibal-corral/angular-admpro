@@ -12,6 +12,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './admin/users/users.component';
+import { HospitalsComponent } from './admin/hospitals/hospitals.component';
+import { DoctorsComponent } from './admin/doctors/doctors.component';
 
 
 
@@ -27,6 +30,9 @@ import { ProfileComponent } from './profile/profile.component';
      PromisesComponent,
      RxjsComponent,
      ProfileComponent,
+     UsersComponent,
+     HospitalsComponent,
+     DoctorsComponent,
      
   ],
   exports:[
