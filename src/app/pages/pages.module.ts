@@ -11,6 +11,7 @@ import { Graphic1Component } from './graphic1/graphic1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -25,6 +26,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
      AccountSettingsComponent,
      PromisesComponent,
      RxjsComponent,
+     ProfileComponent,
      
   ],
   exports:[

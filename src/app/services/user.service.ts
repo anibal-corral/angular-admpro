@@ -27,14 +27,16 @@ export class UserService {
         'x-token':token
       }
     }).pipe(
-      tap(
+      // tap(
+        map(
         (resp:any)=>{
           localStorage.setItem('token', resp.token);
           // this.user = resp.user;
           const { email, google, name, role, uid, img} = resp.user;
           this.user = new User(name,email,google,'',img,role,uid);
+          return true;
         }),
-        map(resp => true),
+        // map(resp => true),
         catchError(error=>of(false))
     ) ;
   }
