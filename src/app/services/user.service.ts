@@ -105,6 +105,14 @@ export class UserService {
       headers:{
         'x-token':token
       }
-    })
+    }).pipe(
+      map(resp => {
+        const users = resp.users.map(user => new User(user.name,user.email,user.google,'',user.img, user.role, user.uid))
+        return {
+          total:resp.total,
+          users
+        };
+      })
+    )
   }
 }
