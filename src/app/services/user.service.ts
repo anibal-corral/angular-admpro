@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
@@ -106,6 +106,7 @@ export class UserService {
         'x-token':token
       }
     }).pipe(
+      delay(500),
       map(resp => {
         const users = resp.users.map(user => new User(user.name,user.email,user.google,'',user.img, user.role, user.uid))
         return {
