@@ -9,7 +9,9 @@ const BASE_URL = environment.base_url;
 export class ImagePipe implements PipeTransform {
 
   transform(img:string, type:'users'|'doctors'|'hospitals'): string {
-    if(img.includes('https:')){
+    
+    
+    if(img!== undefined && img.includes('https:')){
       return img;
   }
   if(img){

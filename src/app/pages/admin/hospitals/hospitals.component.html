@@ -28,6 +28,12 @@
 <div class="col-12" *ngIf="!loading">
     <div class="card">
         <div class="card-body">
+            <div class="text-right">
+                <button class="btn btn-primary" (click)="openSweetAlert()">
+                    <i class="fa fa-hospital-o"></i>
+                    Create hospital
+                </button>
+            </div>
             <h4 class="card-title">Hospitals ({{hospitals.length}})</h4>
             <h6 class="card-subtitle">
                 Hospitals registered</h6>
@@ -43,7 +49,7 @@
                     <tbody>
                         <tr *ngFor="let hospital of hospitals">
                             <td class="text-center">
-<img [src]=" hospital.img | image: 'hospitals'" [alt]="hospital.name" class="avatar cursor">
+<img [src]=" hospital.img | image: 'hospitals'" [alt]="hospital.name" class="avatar cursor" (click)="openModal(hospital)">
                                
                             </td>
                             <td>
@@ -52,8 +58,8 @@
                                 >
                             </td>
                             <td class="text-nowrap text-center">
-                                <a href="#" data-toggle="tooltip" data-original-title="Save changes"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                <a href="#" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
+                                <a (click)="updateHospital(hospital)" data-toggle="tooltip" data-original-title="Save changes" class="cursor"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                <a (click)="deleteHospital(hospital)" data-toggle="tooltip" data-original-title="Delete" class="cursor"> <i class="fa fa-close text-danger"></i> </a>
                             </td>
                         </tr>
                     </tbody>

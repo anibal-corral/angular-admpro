@@ -40,6 +40,25 @@ getHospitals(){
   
 }
 
+createHospitals(name:string){
+  const url = `${base_url}/${api}`;
+  return this.http.post(url,{name},this.headers);
+  
+  
+}
+updateHospitals(_id:string, name:string){
+  const url = `${base_url}/${api}/${_id}`;
+  return this.http.put(url,{name},this.headers);
+  
+  
+}
+deleteHospitals(_id:string){
+  const url = `${base_url}/${api}/${_id}`;
+  return this.http.delete(url,this.headers);
+  
+  
+}
+
 
 
 
