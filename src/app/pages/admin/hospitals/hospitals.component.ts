@@ -10,6 +10,7 @@ import { HospitalService } from '../../../services/hospital.service';
 })
 export class HospitalsComponent implements OnInit {
 hospitals:Hospital[]=[]
+loading:boolean=true;
   constructor(private hospitalService:HospitalService) { }
 
   ngOnInit(): void {
@@ -17,8 +18,9 @@ hospitals:Hospital[]=[]
   }
 
   loadHospitals(){
-    this.hospitalService.getHospitals().subscribe(hospitals => this.hospitals=hospitals);
-
+    this.loading=true;
+    this.hospitalService.getHospitals().subscribe(hospitals => {this.hospitals=hospitals; this.loading=false});
   }
+  
 
 }

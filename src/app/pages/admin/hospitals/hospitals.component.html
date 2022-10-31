@@ -11,7 +11,9 @@
         </div>
     </div>
 </div>
-<div class="row  animated fadeIn fast">
+<div class="row  animated fadeIn fast"
+*ngIf="loading"
+>
     <div class="col-12">
      <div class="alert alert-info text-center" role="alert" >
         <h4 class="alert-heading">Loading</h4>
@@ -23,46 +25,40 @@
 <div class="row">
 
 
-<div class="col-12">
+<div class="col-12" *ngIf="!loading">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Hospitals</h4>
+            <h4 class="card-title">Hospitals ({{hospitals.length}})</h4>
             <h6 class="card-subtitle">
                 Hospitals registered</h6>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Picture</th>
+                            <th class="w100">Picture</th>
                             <th>Name</th>
-                            <th class="text-nowrap">Actions</th>
+                            <th class="text-nowrap w100">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let hospital of hospitals">
-                            <td>{{hospital.img}}</td>
+                            <td class="text-center">
+<img [src]=" hospital.img | image: 'hospitals'" [alt]="hospital.name" class="avatar cursor">
+                               
+                            </td>
                             <td>
                                 <input type="text" name="" id="" class="form-control" placeholder="Hospital's name"
                                 [(ngModel)]="hospital.name"
                                 >
                             </td>
-                            <!-- <td>
-                                <div class="progress progress-xs margin-vertical-10 ">
-                                    <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                </div>
-                            </td>
-                            <td>May 15, 2015</td> -->
                             <td class="text-nowrap text-center">
-                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                <a href="#" data-toggle="tooltip" data-original-title="Save changes"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                                 <a href="#" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-secondary">Before</button>
-            &nbsp;
-            <button class="btn btn-primary">Next</button>
         </div>
     </div>
 </div>
