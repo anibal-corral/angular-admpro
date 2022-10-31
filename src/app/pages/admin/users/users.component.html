@@ -26,7 +26,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Users</h4>
+                            <h4 class="card-title">Users {{totalUsers}} - {{from}}</h4>
                             <h6 class="card-subtitle">
                                 Users registered</h6>
                             <div class="table-responsive">
@@ -66,9 +66,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button class="btn btn-secondary">Before</button>
+                            <button class="btn btn-secondary" (click)="changePage(-5)">Before</button>
                             &nbsp;
-                            <button class="btn btn-primary">Next</button>
+                            <button class="btn btn-primary" (click)="changePage(+5)">Next</button>
                         </div>
                     </div>
                 </div>
