@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
@@ -79,7 +79,7 @@ export class UserService {
     })
   }
 
-  updateProfile(data:{email:string, name:string}){
+  updateProfile(data:{email:string, name:string, role:string}){
     const token = localStorage.getItem('token')||'';
 
     const m = {
@@ -89,7 +89,46 @@ export class UserService {
 
     }
     return this.http.put(
-      `${base_url}/${api}/${this.user.uid}`, data
+      `${base_url}/${api}/${this.user.uid}`, m
+      ,{
+        headers:{
+          'x-token':token
+        }
+      }
+      )
+  }
+
+  getUsers(from: number = 0){
+    const url = `${base_url}/${api}?from=${from}`;
+    const token = localStorage.getItem('token')||'';
+    return this.http.get<{total:number, users:User[]}>(url,{
+      headers:{
+        'x-token':token
+      }
+    }).pipe(
+      delay(500),
+      map(resp => {
+        const users = resp.users.map(user => new User(user.name,user.email,user.google,'',user.img, user.role, user.uid))
+        return {
+          total:resp.total,
+          users
+        };
+      })
+    )
+  }
+
+  deleteUser(user:User){
+    // http://localhost:3000/api/users/6356eb959f1504aaf10c5176
+    const url = `${base_url}/${api}/${user.uid}`;
+    const token = localStorage.getItem('token')||'';
+    return this.http.delete(url,{headers:{'x-token':token}})
+    
+  }
+  updateUser(user:User){
+    const token = localStorage.getItem('token')||'';
+
+    return this.http.put(
+      `${base_url}/${api}/${user.uid}`, user
       ,{
         headers:{
           'x-token':token
