@@ -5,6 +5,8 @@
                                 <input type="text"
                                 class="form-control"
                                 placeholder="Search users..."
+                                (keyup)="search(txtSearch.value)"
+                                #txtSearch
                                 >
                                
                             </div>
@@ -72,9 +74,13 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button class="btn btn-secondary" (click)="changePage(-5)">Before</button>
+                            <div *ngIf="txtSearch.value.length === 0">
+
+                                <button class="btn btn-secondary" (click)="changePage(-5)">Before</button>
                             &nbsp;
                             <button class="btn btn-primary" (click)="changePage(+5)">Next</button>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

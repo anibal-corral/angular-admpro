@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { IfStmt } from '@angular/compiler';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { SearchsService } from 'src/app/services/searchs.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -11,9 +13,12 @@ import { UserService } from '../../../services/user.service';
 export class UsersComponent implements OnInit {
 totalUsers:number=0;
 users:User[] = [];
+usersTMP:User[] = [];
 from:number = 0;
 loading:boolean=true;
-  constructor(private userService:UserService) { }
+
+
+  constructor(private userService:UserService, private userSearchService:SearchsService) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -27,6 +32,7 @@ loading:boolean=true;
           this.totalUsers = total;
         
           this.users = users;
+          this.usersTMP=users;
           this.loading=false;
         }
         )
@@ -43,6 +49,22 @@ loading:boolean=true;
 
       this.loadUsers();
 
+    } 
+
+    search(term:string){
+      if(term.length===0){
+        return this.users = this.usersTMP;
+      }else{
+        return this.userSearchService.search('users',term).subscribe( result => 
+          {
+            this.users = result 
+          }
+          );
+      }
+      
+      
     }
+
+ 
 
 }
