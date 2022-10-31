@@ -1,9 +1,11 @@
 import { IfStmt } from '@angular/compiler';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { SearchsService } from 'src/app/services/searchs.service';
 import Swal from 'sweetalert2';
 import { UserService } from '../../../services/user.service';
+import { ModalImageService } from '../../../services/modal-image.service';
+import { delay, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -11,18 +13,33 @@ import { UserService } from '../../../services/user.service';
   styles: [
   ]
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 totalUsers:number=0;
 users:User[] = [];
 usersTMP:User[] = [];
 from:number = 0;
 loading:boolean=true;
 
+  imgSubs: Subscription = new Subscription;
 
-  constructor(private userService:UserService, private userSearchService:SearchsService) { }
+
+
+  constructor(private userService:UserService, 
+    private userSearchService:SearchsService,
+    private modalImageService:ModalImageService
+    ) { }
+  ngOnDestroy(): void {
+   this.imgSubs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.loadUsers();
+
+   this.imgSubs= this.modalImageService.newImage.pipe(
+      delay(1000)
+    )
+    .subscribe(()=>this.loadUsers())
+
     }
     loadUsers(){
       this.loading=true;
@@ -103,12 +120,16 @@ loading:boolean=true;
     }
     changeRole(user:User){
       console.log(user);
-      const {email, name, role='USER_ROLE'} = user;
+      // const {email, name, role='USER_ROLE'} = user;
       this.userService.updateUser(user).subscribe(
         
         resp => console.log(resp)
         
         );
+    }
+    openModal(user:User){
+      
+      this.modalImageService.openModal('users',user.uid||'',user.img);
     }
  
 
