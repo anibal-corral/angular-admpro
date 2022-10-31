@@ -2,6 +2,7 @@ import { IfStmt } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { SearchsService } from 'src/app/services/searchs.service';
+import Swal from 'sweetalert2';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -63,6 +64,42 @@ loading:boolean=true;
       }
       
       
+    }
+
+
+    deleteUser(user:User){
+      if(user.uid === this.userService.user.uid){
+        Swal.fire('Error', 'You cannot delete yourself', 'error');
+        return;
+      }
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        // confirmButtonColor: '#3085d6',
+        // cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.userService.deleteUser(user).subscribe(
+            (resp) => {
+              Swal.fire(
+              'User deleted',
+              `${user.name} has been deleted`,
+              'success'
+            );
+          this.loadUsers();
+        },
+            (error) => Swal.fire(
+              'Error',
+              `Error ${error}`,
+              'error'
+            ), 
+          )
+          
+        }
+      })
     }
 
  

@@ -116,4 +116,12 @@ export class UserService {
       })
     )
   }
+
+  deleteUser(user:User){
+    // http://localhost:3000/api/users/6356eb959f1504aaf10c5176
+    const url = `${base_url}/${api}/${user.uid}`;
+    const token = localStorage.getItem('token')||'';
+    return this.http.delete(url,{headers:{'x-token':token}})
+    
+  }
 }
