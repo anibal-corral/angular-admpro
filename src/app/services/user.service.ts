@@ -79,7 +79,7 @@ export class UserService {
     })
   }
 
-  updateProfile(data:{email:string, name:string}){
+  updateProfile(data:{email:string, name:string, role:string}){
     const token = localStorage.getItem('token')||'';
 
     const m = {
@@ -89,7 +89,7 @@ export class UserService {
 
     }
     return this.http.put(
-      `${base_url}/${api}/${this.user.uid}`, data
+      `${base_url}/${api}/${this.user.uid}`, m
       ,{
         headers:{
           'x-token':token
@@ -123,5 +123,17 @@ export class UserService {
     const token = localStorage.getItem('token')||'';
     return this.http.delete(url,{headers:{'x-token':token}})
     
+  }
+  updateUser(user:User){
+    const token = localStorage.getItem('token')||'';
+
+    return this.http.put(
+      `${base_url}/${api}/${user.uid}`, user
+      ,{
+        headers:{
+          'x-token':token
+        }
+      }
+      )
   }
 }

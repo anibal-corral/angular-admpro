@@ -101,7 +101,15 @@ loading:boolean=true;
         }
       })
     }
-
+    changeRole(user:User){
+      console.log(user);
+      const {email, name, role='USER_ROLE'} = user;
+      this.userService.updateUser(user).subscribe(
+        
+        resp => console.log(resp)
+        
+        );
+    }
  
 
 }

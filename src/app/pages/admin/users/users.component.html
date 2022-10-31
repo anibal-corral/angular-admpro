@@ -54,7 +54,16 @@
                                                 </td>
                                             <td>{{user.email}}</td>
                                             <td>{{user.name}}</td>
-                                            <td>{{user.role}}</td>
+                                            <td>
+                                                {{user.role}}
+                                              <select name="" id="" class="form-control"
+                                              [(ngModel)]="user.role"
+                                              (change)="changeRole(user)"
+                                              >
+                                                <option value="ADMIN_ROLE">Admin</option>
+                                                <option value="USER_ROLE">User</option>
+                                              </select>
+                                            </td>
                                             <td>
                                                 <span *ngIf="user.google" class="label label-danger">Google</span>
                                                 <span *ngIf="!user.google" class="label label-info">Email</span>
@@ -67,7 +76,7 @@
                                             </td>
                                             <td>May 15, 2015</td> -->
                                             <td class="text-nowrap text-center">
-                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                <!-- <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a> -->
                                                 <a 
                                                 class="cursor"
                                                 (click)="deleteUser(user)"
