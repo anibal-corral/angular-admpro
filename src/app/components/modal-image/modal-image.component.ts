@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FileuploadService } from 'src/app/services/fileupload.service';
 import Swal from 'sweetalert2';
 import { ModalImageService } from '../../services/modal-image.service';
@@ -9,6 +9,7 @@ import { ModalImageService } from '../../services/modal-image.service';
 })
 export class ModalImageComponent implements OnInit {
   // user!:User;
+  @ViewChild('uploadPictureProfile') uploadPictureProfile!:ElementRef;
   profilePicture!:File;
   profilePicturePreview:string|ArrayBuffer|null =null;
   constructor(public modalImageService:ModalImageService,private fileUploadService:FileuploadService) { }
@@ -18,12 +19,16 @@ export class ModalImageComponent implements OnInit {
 
   closeModal(){
     this.profilePicturePreview=null;
+    this.uploadPictureProfile.nativeElement.value="";
     this.modalImageService.closeModal();
   }
 
   changeImg(file:any){
+    // console.log('ChangeIMG');
+    
     this.profilePicture = file 
     if(!file){
+      // console.log('There is no image');
       this.profilePicturePreview=null;
       return;
     }
@@ -48,7 +53,7 @@ export class ModalImageComponent implements OnInit {
         .then(img=> {
           Swal.fire('Success','Changes saved successfully','success' );
           this.modalImageService.newImage.emit(img);
-          console.log(img);
+          // console.log(img);
           this.closeModal();
         }).catch((err)=>
           Swal.fire('Error', 'Error','error')

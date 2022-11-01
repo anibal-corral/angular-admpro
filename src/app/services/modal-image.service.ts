@@ -18,11 +18,13 @@ private _hideModal:boolean=true;
 
 
   get hideModal(){
+    
     return this._hideModal;
   }
 
   openModal(type:'users'|'doctors'|'hospitals', id:string, img:string ='no-img'){
-
+// console.log('Open Modal Image Service with ');
+// console.log({type, id, img});
     this._hideModal=false;
     this.type=type;
     this.id=id;
@@ -38,5 +40,7 @@ private _hideModal:boolean=true;
   }
   closeModal(){
     this._hideModal=true;
+    this.id='';
+    this.img=''
   }
 }

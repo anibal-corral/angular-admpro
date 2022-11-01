@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User } from '../models/user.model';
+import { Hospital } from '../models/hospital.model';
+import { Doctor } from '../models/doctor.model';
 
 const base_url = environment.base_url;
 const api = 'search';
@@ -13,9 +15,9 @@ export class SearchsService {
 
   constructor(private http:HttpClient) { }
 
-  search(type:'users'|'doctors'|'hospitals', term:string){
+  search(type:'users'|'doctors'|'hospitals', term:string):Observable<User[] | Doctor[] | Hospital[]>{
     const url = `${base_url}/${api}/collection/${type}/${term}`;
-    console.log(url);
+    // console.log(url);
     
     const token = localStorage.getItem('token')||'';
     return this.http.get(url,{
@@ -27,14 +29,10 @@ export class SearchsService {
         switch (type) {
           case 'users':
             return this.createUsers(resp.result)
-            
-        
             case 'doctors':
-            
-              return[];
+              return this.createDoctors(resp.result)
             case 'hospitals':
-            
-              return[];
+              return this.createHospitals(resp.result)
           default:
             return[];
         }
@@ -50,5 +48,18 @@ export class SearchsService {
     )
 
   }
+  private createHospitals(results:any[]):Hospital[]{
 
+    return results.map(
+      hospital => new Hospital(hospital._id, hospital.name, hospital.ser,hospital.active, hospital.img)
+    )
+
+  }
+  private createDoctors(results:any[]):Doctor[]{
+
+    return results.map(
+      doctor => new Doctor(doctor.name,doctor.id,doctor.img,doctor.user)
+    )
+
+  }
 }

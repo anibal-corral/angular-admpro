@@ -1,1 +1,77 @@
-<p>doctors works!</p>
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text"
+                class="form-control"
+                placeholder="Search doctors..."
+                (keyup)="search(txtSearch.value)"
+                #txtSearch
+                >
+               
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row  animated fadeIn fast" *ngIf="loading">
+    <div class="col-12">
+     <div class="alert alert-info text-center" role="alert" >
+        <h4 class="alert-heading">Loading</h4>
+        <i class="fa fa-spin fa-refresh fa-2x"></i>
+        <p class="mb-0">Please wait</p>
+     </div>
+    </div>
+</div>
+<div class="row">
+
+
+<div class="col-12" *ngIf="!loading">
+    <div class="card">
+        <div class="card-body">
+            <div class="text-right">
+                <a  [routerLink]="['./','new']">
+                <button class="btn btn-primary">
+                    <i class="fa fa-hospital-o"></i>
+                    Create doctor
+                </button>
+            </a>
+            </div>
+            <h4 class="card-title">Doctors</h4>
+            <h6 class="card-subtitle">
+                Doctors registered</h6>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="w100">Avatar</th>
+                            <th>Name</th>
+                            <th>Hospital</th>
+                            <th class="text-nowrap w100">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let doctor of doctors">
+                            <td>
+                                
+                                <img 
+                                [src]=" doctor.img | image: 'doctors'" 
+                                [alt]="doctor.name" 
+                                class="avatar profile-pic cursor" 
+                                (click)="openModal(doctor)">
+                                
+                            </td>
+                            <td>{{doctor.name}}</td>
+                            <td>{{doctor.hospital?.name}}</td>
+                            <td class="text-nowrap text-center">
+                                <a [routerLink]="['./',doctor.uid]" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                <a (click)="deleteDoctor(doctor)" data-toggle="tooltip" data-original-title="Delete" class="cursor"> <i class="fa fa-close text-danger"></i> </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+         
+        </div>
+    </div>
+</div>
+</div>

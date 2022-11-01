@@ -15,6 +15,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './admin/users/users.component';
 import { HospitalsComponent } from './admin/hospitals/hospitals.component';
 import { DoctorsComponent } from './admin/doctors/doctors.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { DoctorComponent } from './admin/doctors/doctor/doctor.component';
 
 
 
@@ -33,6 +35,7 @@ import { DoctorsComponent } from './admin/doctors/doctors.component';
      UsersComponent,
      HospitalsComponent,
      DoctorsComponent,
+     DoctorComponent,
      
   ],
   exports:[
@@ -50,7 +53,8 @@ import { DoctorsComponent } from './admin/doctors/doctors.component';
     SharedModule,
     AppRoutingModule,
     ComponentsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
     
   ]
 
