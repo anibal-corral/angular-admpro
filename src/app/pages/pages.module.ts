@@ -16,6 +16,7 @@ import { UsersComponent } from './admin/users/users.component';
 import { HospitalsComponent } from './admin/hospitals/hospitals.component';
 import { DoctorsComponent } from './admin/doctors/doctors.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { DoctorComponent } from './admin/doctors/doctor/doctor.component';
 
 
 
@@ -34,6 +35,7 @@ import { PipesModule } from '../pipes/pipes.module';
      UsersComponent,
      HospitalsComponent,
      DoctorsComponent,
+     DoctorComponent,
      
   ],
   exports:[

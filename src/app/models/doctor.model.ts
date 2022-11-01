@@ -1,7 +1,8 @@
 import { environment } from "src/environments/environment";
+import { Hospital } from "./hospital.model";
 
 const BASE_URL = environment.base_url;
-interface _DoctorlUser{
+interface _doctorlUser{
     name:string;
     _id:string;
     img:string
@@ -10,9 +11,10 @@ interface _DoctorlUser{
 export class Doctor {
     constructor (
         public name:string,
-        public _id:string,
+        public uid:string,
         public img:string ='',
-        public user?:_DoctorlUser
+        public user?:_doctorlUser,
+        public hospital?:Hospital
 
 
     ){}
