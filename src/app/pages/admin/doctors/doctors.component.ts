@@ -39,7 +39,7 @@ this.imgSubs.unsubscribe();
 loadDoctors(){
 this.loading=true;
 this.doctorService.getDoctors().subscribe(doctors => {
-console.log(doctors);
+// console.log(doctors);
 
 this.doctors=doctors; this.loading=false
 });
@@ -47,7 +47,7 @@ this.doctors=doctors; this.loading=false
 
 updateDoctor(doctor:Doctor){
 console.log('Updating');
-this.doctorService.updateDoctor(doctor.uid, doctor.name).subscribe(
+this.doctorService.updateDoctor(doctor).subscribe(
 (resp)=>{
 Swal.fire('Success','Changes saved', 'success')
 },
@@ -91,36 +91,9 @@ deleteDoctor(doctor:Doctor){
 
 }
 
-createDoctor(name:string){
-this.doctorService.createDoctor(name).subscribe(
-(resp)=>{
-this.loadDoctors();
-Swal.fire('Success','Doctor created', 'success')
-},
-(err)=>{
-Swal.fire('Error', 'Error creating doctor ' + err, 'error')
-}
-)
 
-}
 
-async openSweetAlert(){
-const value =  await Swal.fire<string>({
-title:"Create Doctor",
-text:"Enter the doctor name",
-input:'text',
-inputPlaceholder:"Doctor's name",
-showCancelButton:true,
-});
-// console.log(value);
-if(value.isConfirmed){
-const newName = value.value ||'';
-if(newName.length>0){
-this.createDoctor(newName);
-}
-}
 
-}
 openModal(doctor:Doctor){
 this.modalImageService.openModal('doctors',doctor.uid||'',doctor.img);
 }

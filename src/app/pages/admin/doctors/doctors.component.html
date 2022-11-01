@@ -29,10 +29,12 @@
     <div class="card">
         <div class="card-body">
             <div class="text-right">
-                <button class="btn btn-primary" (click)="openSweetAlert()">
+                <a  [routerLink]="['./','new']">
+                <button class="btn btn-primary">
                     <i class="fa fa-hospital-o"></i>
                     Create doctor
                 </button>
+            </a>
             </div>
             <h4 class="card-title">Doctors</h4>
             <h6 class="card-subtitle">
@@ -54,8 +56,9 @@
                                 <img 
                                 [src]=" doctor.img | image: 'doctors'" 
                                 [alt]="doctor.name" 
-                                class="avatar profile-pic" 
-                                >
+                                class="avatar profile-pic cursor" 
+                                (click)="openModal(doctor)">
+                                
                             </td>
                             <td>{{doctor.name}}</td>
                             <td>{{doctor.hospital?.name}}</td>
