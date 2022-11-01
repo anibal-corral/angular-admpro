@@ -20,7 +20,7 @@
                     <img *ngIf="profilePicturePreview" [src]="profilePicturePreview" alt="" class='img-avatar'>
                 </div>
                 
-                <input type="file"
+                <input #uploadPictureProfile type="file"
                 (change)="changeImg($any($event.target).files[0])"
                 >
             </div>

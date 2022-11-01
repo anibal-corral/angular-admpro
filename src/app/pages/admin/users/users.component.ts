@@ -75,7 +75,7 @@ loading:boolean=true;
       }else{
         return this.userSearchService.search('users',term).subscribe( result => 
           {
-            this.users = result 
+            this.users = result as User[]; 
           }
           );
       }

@@ -5,6 +5,8 @@
                 <input type="text"
                 class="form-control"
                 placeholder="Search hospitals..."
+                (keyup)="search(txtSearch.value)"
+                #txtSearch
                 >
                
             </div>
@@ -49,7 +51,11 @@
                     <tbody>
                         <tr *ngFor="let hospital of hospitals">
                             <td class="text-center">
-<img [src]=" hospital.img | image: 'hospitals'" [alt]="hospital.name" class="avatar cursor" (click)="openModal(hospital)">
+                                    <img 
+                                    [src]=" hospital.img | image: 'hospitals'" 
+                                    [alt]="hospital.name" 
+                                    class="avatar profile-pic cursor" 
+                                    (click)="openModal(hospital)">
                                
                             </td>
                             <td>

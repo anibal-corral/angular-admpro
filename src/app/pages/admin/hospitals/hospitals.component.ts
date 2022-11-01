@@ -4,6 +4,7 @@ import { HospitalService } from '../../../services/hospital.service';
 import Swal from 'sweetalert2';
 import { ModalImageService } from '../../../services/modal-image.service';
 import { delay, Subscription } from 'rxjs';
+import { SearchsService } from '../../../services/searchs.service';
 
 @Component({
   selector: 'app-hospitals',
@@ -13,9 +14,13 @@ import { delay, Subscription } from 'rxjs';
 })
 export class HospitalsComponent implements OnInit {
 hospitals:Hospital[]=[]
+hospitalsTMP:Hospital[]=[]
 loading:boolean=true;
 imgSubs: Subscription = new Subscription;
-  constructor(private hospitalService:HospitalService, private modalImageService: ModalImageService) { }
+  constructor(private hospitalService:HospitalService, 
+              private modalImageService: ModalImageService,
+              private hospitalSearchService:SearchsService
+              ) { }
 
   ngOnInit(): void {
     this.loadHospitals();
@@ -31,7 +36,7 @@ imgSubs: Subscription = new Subscription;
   loadHospitals(){
     this.loading=true;
     this.hospitalService.getHospitals().subscribe(hospitals => {
-      console.log(hospitals)
+      
       this.hospitals=hospitals; this.loading=false
     });
   }
@@ -95,6 +100,24 @@ async openSweetAlert(){
   
 }
 openModal(hospital:Hospital){
+  // console.log('Oppening modal');
+  // console.log(hospital);
+  
   this.modalImageService.openModal('hospitals',hospital._id||'',hospital.img);
 }
+
+search(term:string){
+  if(term.length===0){
+    return this.hospitals = this.hospitalsTMP;
+  }else{
+    return this.hospitalSearchService.search('hospitals',term).subscribe( result => 
+      {
+        this.hospitals = result as Hospital[]
+      }
+      );
+  }
+  
+  
+}
+
 }
