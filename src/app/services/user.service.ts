@@ -20,6 +20,14 @@ export class UserService {
   user!:User;
 
   constructor(private http:HttpClient, private router:Router) { }
+
+  saveTokenAndMenu(token:string, menu:any)
+  {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
+
+  }
+
   validateToken():Observable<boolean>{
     const token = localStorage.getItem('token')||'';
     return this.http.get(`${base_url}/login/renew`,{
@@ -30,10 +38,11 @@ export class UserService {
       // tap(
         map(
         (resp:any)=>{
-          localStorage.setItem('token', resp.token);
-          // this.user = resp.user;
+          // localStorage.setItem('token', resp.token);
           const { email, google, name, role, uid, img} = resp.user;
           this.user = new User(name,email,google,'',img,role,uid);
+          // localStorage.setItem('menu', resp.menu);
+          this.saveTokenAndMenu(resp.token, resp.menu);
           return true;
         }),
         // map(resp => true),
@@ -47,7 +56,8 @@ export class UserService {
     ).pipe(
       tap((resp:any) => {
         console.log(resp);
-        localStorage.setItem('token', resp.token)
+        this.saveTokenAndMenu(resp.token, resp.menu);
+        // localStorage.setItem('token', resp.token)
       })
     )
     
@@ -58,7 +68,8 @@ export class UserService {
       formData
     ).pipe(
       tap((resp:any) => {
-         localStorage.setItem('token', resp.token)
+        //  localStorage.setItem('token', resp.token)
+         this.saveTokenAndMenu(resp.token, resp.menu);
       })
     )
   }
@@ -66,14 +77,15 @@ export class UserService {
     return this.http.post(`${base_url}/login/google`,{token})
     .pipe(
       tap((resp:any)=>{
-        localStorage.setItem('token', resp.token)
+        this.saveTokenAndMenu(resp.token, resp.menu);
+        // localStorage.setItem('token', resp.token)
       })
     )
   }
 
   logout(){
     localStorage.removeItem('token');
-    
+    localStorage.removeItem('menu');
     google.accounts.id.revoke('anibal.corral@gmail.com',()=>{
       this.router.navigateByUrl('/login');
     })
