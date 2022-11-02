@@ -21,24 +21,8 @@ const routes: Routes = [
     path: 'dashboard', 
     component: PagesComponent,
     canActivate: [AuthGuard],
-    children: [
- 
-      { path: '', component: DashboardComponent, data:{title:'Dashboard'}},
-      { path: 'progress', component: ProgressComponent, data:{title:'ProgressBar'}},
-      { path: 'graphic1', component: Graphic1Component, data:{title:'Graphic'}},
-      { path: 'account-settings', component: AccountSettingsComponent, data:{title:'Account Settings'}},
-      { path: 'promises', component: PromisesComponent, data:{title:'Promises'}},
-      { path: 'rxjs', component: RxjsComponent, data:{title:'Rxjs'}},
-      { path: 'profile', component:ProfileComponent, data:{title:'User profile'}},
-      
-      //ADMIN SECTION
-      { path: 'users', component:UsersComponent,canActivate:[AdminGuard], data:{title:'Users'}},
-      { path: 'doctors', component:DoctorsComponent, data:{title:'Doctors'}},
-      { path: 'doctors/:id', component:DoctorComponent, data:{title:'Doctor'}},
-      { path: 'hospitals', component:HospitalsComponent, data:{title:'Hospitals'}},
-      { path: 'search/:term', component:SearchComponent, data:{title:'Searching..'}}
-      // { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-    ]
+    canLoad:[AuthGuard],
+   loadChildren: ()=> import('./child-routes.module').then(m=> m.ChildRoutesModule)
 },
 ]
 
