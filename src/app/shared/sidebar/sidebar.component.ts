@@ -23,4 +23,8 @@ user!:User;
     this.menuItems=this.sidebarService.menu;
   }
 
+  logout(){
+    this.userService.logout();
+  }
+
 }

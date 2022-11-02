@@ -91,7 +91,10 @@ return this.user.role || 'USER_ROLE';
   logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('menu');
-    google.accounts.id.revoke('anibal.corral@gmail.com',()=>{
+    
+    google.accounts.id.revoke('anibal.corral@gmail.com',()=>
+    {
+      // console.log(resp)      
       this.router.navigateByUrl('/login');
     })
   }
