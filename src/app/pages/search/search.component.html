@@ -3,35 +3,29 @@
             <div class="card">
                 <div class="card-body">
                          <h3>Users</h3>
-                         <div class="alert alert-info">
+                         <div *ngIf="users.length==0"
+                            class="alert alert-info">
                             <p class="mb-0">There is no users with the term searched</p>
                          </div>
                          
-                         <div class="table-responsive">
+                         <div class="table-responsive" *ngIf="users.length!=0">
                             <table class="table color-table primary-table">
                                 <thead>
                                     <tr>
-                                        <th>Avatar</th>
+                                        <th class="w75">Avatar</th>
                                         <th>Name</th>
                                         
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Nigam</td>
+                                    <tr *ngFor="let user of users" >
+                                        
+                                        
+                                        <td><img [src]="(user.img||'') | image:'users'" [alt]="user.name" class="avatar"></td>
+                                        <td>{{user.name}}</td>
                                         
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Deshmukh</td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Roshan</td>
-                                        
-                                    </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>   
@@ -44,35 +38,26 @@
             <div class="card">
                 <div class="card-body">
                     <h3>Doctors</h3>
-                    <div class="alert alert-info">
+                    <div class="alert alert-info" *ngIf="doctors.length==0">
                         <p class="mb-0">There is no doctors with the term searched</p>
                      </div>
                            
-                    <div class="table-responsive">
+                    <div class="table-responsive" *ngIf="doctors.length!=0">
                         <table class="table color-table primary-table">
                             <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>First Name</th>
+                                <tr >
+                                    <th class="w75">Avatar</th>
+                                    <th>Name</th>
                                     
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Nigam</td>
+                                <tr *ngFor="let doctor of doctors" (click)="openDoctor(doctor)" class="cursor">
+                                    <td><img [src]="doctor.img | image:'doctors'" [alt]="doctor.name" class="avatar"></td>
+                                    <td>{{doctor.name}}</td>
                                     
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Deshmukh</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Roshan</td>
-                                    
-                                </tr>
+                               
                             </tbody>
                         </table>
                     </div>   
@@ -84,35 +69,27 @@
             <div class="card">
                 <div class="card-body">
                     <h3>Hospitals</h3>  
-                    <div class="alert alert-info">
+                    <div class="alert alert-info" *ngIf="hospitals.length==0">
                         <p class="mb-0">There is no hospitals with the term searched</p>
                      </div>
                      
-                    <div class="table-responsive">
+                    <div class="table-responsive" *ngIf="hospitals.length!=0">
                         <table class="table color-table primary-table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>First Name</th>
+                                    <th>Avatar</th>
+                                    <th>Name</th>
                                     
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Nigam</td>
+                                <tr *ngFor="let hospital of hospitals" >
+                                    
+                                    <td><img [src]="hospital.img | image:'hospitals'" [alt]="hospital.name" class="avatar"></td>
+                                    <td>{{hospital.name}}</td>
                                     
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Deshmukh</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Roshan</td>
-                                    
-                                </tr>
+                             
                             </tbody>
                         </table>
                     </div>            
