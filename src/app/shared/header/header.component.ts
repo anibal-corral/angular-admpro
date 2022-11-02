@@ -20,11 +20,17 @@ export class HeaderComponent implements OnInit {
   }
   logout(){
     this.userService.logout();
-    this.router.navigateByUrl('/login');
+    // this.router.navigateByUrl('/login');
   }
 
   search(term:string){
     console.log(term);
+    if(term.length>0){
+      this.router.navigateByUrl(`/dashboard/search/${term}`);
+    }else{
+      this.router.navigateByUrl(`/dashboard/`);
+    }
+    
   }
 
 }

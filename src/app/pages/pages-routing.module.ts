@@ -13,6 +13,7 @@ import { UsersComponent } from './admin/users/users.component';
 import { DoctorsComponent } from './admin/doctors/doctors.component';
 import { HospitalsComponent } from './admin/hospitals/hospitals.component';
 import { DoctorComponent } from './admin/doctors/doctor/doctor.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
       { path: 'doctors', component:DoctorsComponent, data:{title:'Doctors'}},
       { path: 'doctors/:id', component:DoctorComponent, data:{title:'Doctor'}},
       { path: 'hospitals', component:HospitalsComponent, data:{title:'Hospitals'}},
+      { path: 'search/:term', component:SearchComponent, data:{title:'Searching..'}}
       // { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
     ]
 },
