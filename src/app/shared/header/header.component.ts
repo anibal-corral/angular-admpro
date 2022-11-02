@@ -23,4 +23,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
+  search(term:string){
+    console.log(term);
+  }
+
 }
