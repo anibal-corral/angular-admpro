@@ -14,6 +14,7 @@ import { DoctorsComponent } from './admin/doctors/doctors.component';
 import { HospitalsComponent } from './admin/hospitals/hospitals.component';
 import { DoctorComponent } from './admin/doctors/doctor/doctor.component';
 import { SearchComponent } from './search/search.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -29,8 +30,9 @@ const routes: Routes = [
       { path: 'promises', component: PromisesComponent, data:{title:'Promises'}},
       { path: 'rxjs', component: RxjsComponent, data:{title:'Rxjs'}},
       { path: 'profile', component:ProfileComponent, data:{title:'User profile'}},
-
-      { path: 'users', component:UsersComponent, data:{title:'Users'}},
+      
+      //ADMIN SECTION
+      { path: 'users', component:UsersComponent,canActivate:[AdminGuard], data:{title:'Users'}},
       { path: 'doctors', component:DoctorsComponent, data:{title:'Doctors'}},
       { path: 'doctors/:id', component:DoctorComponent, data:{title:'Doctor'}},
       { path: 'hospitals', component:HospitalsComponent, data:{title:'Hospitals'}},

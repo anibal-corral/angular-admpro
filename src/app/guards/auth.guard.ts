@@ -17,11 +17,18 @@ export class AuthGuard implements CanActivate {
      return this.userService.validateToken().pipe(
       tap((authenticated:boolean)=>{
         if(!authenticated){
+          this.cleanLocalStorage();
           this.router.navigateByUrl('/login')
+          
         }
         
       })
      );
+  }
+
+  cleanLocalStorage(){
+    localStorage.removeItem('menu');
+    localStorage.removeItem('token');
   }
   
 }

@@ -21,6 +21,11 @@ export class UserService {
 
   constructor(private http:HttpClient, private router:Router) { }
 
+
+  get userRole():string{
+return this.user.role || 'USER_ROLE';
+  }
+
   saveTokenAndMenu(token:string, menu:any)
   {
     localStorage.setItem('token', token);
