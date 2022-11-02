@@ -15,6 +15,16 @@ export class SearchsService {
 
   constructor(private http:HttpClient) { }
 
+  gobalSearch(term:string){
+    const url =`${base_url}/${api}/${term}`;
+    const token = localStorage.getItem('token')||'';
+    return this.http.get(url, {
+      headers:{
+        'x-token':token
+      }
+    })
+  }
+
   search(type:'users'|'doctors'|'hospitals', term:string):Observable<User[] | Doctor[] | Hospital[]>{
     const url = `${base_url}/${api}/collection/${type}/${term}`;
     // console.log(url);
@@ -62,4 +72,5 @@ export class SearchsService {
     )
 
   }
+
 }

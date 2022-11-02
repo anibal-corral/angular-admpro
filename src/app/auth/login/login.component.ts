@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
 @ViewChild('googleBtn') googleBtn!:ElementRef;
 
   loginForm!: FormGroup;
-  constructor(private router:Router,private fb: FormBuilder, private userService:UserService) { 
+  constructor(private router:Router,private fb: FormBuilder, private userService:UserService, private ngZone:NgZone) { 
+    
     this.loginForm = this.fb.group({
       email:[ localStorage.getItem('email')||'',[Validators.required, Validators.email]],
       pwd:['',[Validators.required, Validators.minLength(3)]],
@@ -43,16 +44,23 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
   handleCredentialResponse(response:any){
     // console.log("Encoded JWT ID token: " + response.credential);
-    this.userService.loginGoogle(response.credential).subscribe((resp)=>{
-      this.router.navigateByUrl('/');
-    })
+    this.userService.loginGoogle(response.credential).subscribe(
+      ()=>this.ngZone.run(
+        ()=>{
+          this.router.navigateByUrl('/');
+        }
+      ),
+      (error)=>{
+        Swal.fire('Error', 'Error login', 'error');
+      }
+     )
   }
   ngOnInit(): void {
   }
 login(){
   // console.log(this.loginForm.value);
   if(!this.loginForm.valid)return;
-this.userService.loginUser(this.loginForm.value).subscribe(
+    this.userService.loginUser(this.loginForm.value).subscribe(
   (resp)=>{
     if(this.loginForm.get('rememberme')?.value){
       localStorage.setItem('email',this.loginForm.get('email')?.value);
